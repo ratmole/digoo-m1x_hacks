@@ -133,6 +133,22 @@ Table of possible movements (see [PanTilt tag](ptz_request.xml#L26))
 | -1.0 | 0.0  | move to the left  |
 
 
+I built a very basic script to make a camera rotate:
+
+```
+usage: rotate.py [-h] [--left] [--right] [--up] [--down] [--times TIMES]
+                 [--ip IP]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --left, -l
+  --right, -r
+  --up, -u
+  --down, -d
+  --times TIMES, -t TIMES
+  --ip IP
+```
+
 ## Software
 
 The Digoo DG-M1Q inspected by e.g, [kfowlks](https://github.com/kfowlks/DG-M1Q) and [yuvadm](https://github.com/yuvadm/DG-M1Q) _seems_ to run a similar (if not the same) software like the m1x. Find dmesg, pictures, serial logs, etc. there.
