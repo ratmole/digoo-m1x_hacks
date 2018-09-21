@@ -74,6 +74,10 @@ As rdate is very uncommon these days, you have to find a sync server that suppor
 
 For the correct time to show up, add your corresponding timezone file inside a persistent folder (e.g. `/npc/zoneinfo`). You will find those files on most linux systems in `/usr/share/zoneinfo/`. It is important to not only copy the actual binary timezone file, but also to create the folder it is residing in and symlink that to `/etc/localtime`, for example for Berlin `ln -s /npc/zoneinfo/Europe/Berlin /etc/localtime`.
 
+### Sync time - alternative
+You can have a "fake ntp" server that will just provide its local datetime via HTTP, as it is the only thing in the default firmware that can connect over the network.  
+You need to host `timeserver.py` on your local network and then on boot `do.sh` will get the datetime from it.
+
 
 ## PTZ
 
@@ -132,6 +136,25 @@ Table of possible movements (see [PanTilt tag](ptz_request.xml#L26))
 ## Software
 
 The Digoo DG-M1Q inspected by e.g, [kfowlks](https://github.com/kfowlks/DG-M1Q) and [yuvadm](https://github.com/yuvadm/DG-M1Q) _seems_ to run a similar (if not the same) software like the m1x. Find dmesg, pictures, serial logs, etc. there.
+
+
+## Firewalling
+
+The only thing that you need is inbound TCP to ports 22/23 (ssh, telnet), 554 (rtsp) and 5000 (motors) and UDP (rtsp - can be limited to a range based on the clients).  
+I also allow the camera to have outbound connections for DHCP and TCP on port 8888 to my firewall (for the fake ntp).
+
+It is **crucial** that you firewall this camera. In 10 seconds it tried to connect 29 times to some eternal services:
+
+```
+21:54:52.408184 IP 192.168.199.186.51700 > 47.91.77.247.51700: UDP, length 32
+# 20 times
+21:54:53.458028 IP espressobin > 192.168.199.186: ICMP 47.91.77.247 udp port 51700 unreachable, length 68
+# 5 times
+21:54:56.189008 IP espressobin > 192.168.199.186: ICMP ec2-54-255-195-121.ap-southeast-1.compute.amazonaws.com udp port 51700 unreachable, length 68
+# 2 times
+21:54:58.078680 IP espressobin > 192.168.199.186: ICMP 49.51.39.15 udp port 51700 unreachable, length 68
+# 2 times
+```
 
 
 ## TODO 
