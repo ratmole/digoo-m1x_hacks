@@ -173,6 +173,9 @@ It is **crucial** that you firewall this camera. In 10 seconds it tried to conne
 ```
 
 
+## Issues
+If your camera does not expose telnet then you need to open it and connect via serial (see [this](https://github.com/yuvadm/DG-M1Q))
+
 ## TODO 
   - scp: link scp from dropbearmulti to $PATH?
   - disable internet access using hosts file?
