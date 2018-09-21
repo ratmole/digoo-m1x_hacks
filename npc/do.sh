@@ -12,3 +12,8 @@ cp /npc/dropbear_ecdsa_host_key /etc/dropbear/
 
 ./dropbearmulti dropbear
 
+# shittiest NTP client in history
+now=$(wget http://192.168.2.1:8888 -O - -q -T 3)
+if [ "test$now" != "test" ]; then
+        date -s "$now"
+fi
